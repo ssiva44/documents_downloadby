@@ -1,0 +1,168 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~ngx-tabset/ngx-tabset";
+@import "app/app.component";
+.active{
+    color: #333;
+}
+
+.drop-right{
+    margin-right: 16px;
+    margin-top: 25px;
+    float: right;
+}
+
+.ajax-div {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background-color: grey;
+    opacity: .8
+}
+.ajax-loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -32px;
+    margin-top: -32px;
+    display: block
+}
+
+.margin-right-35{
+    margin-right: 17px !important;
+}
+.margin-left-10{
+    margin-left: 10px !important;
+}
+.icons_inactive {
+    color: #787878 !important;
+    text-decoration: none !important;
+    cursor: default !important;
+}
+.toggle-btn {
+    font-size: 12px;
+    line-height: 16px;
+    padding: 4px 8px;
+    display: inline-block;
+    color: #fff;
+    border-radius: 4px; 
+}
+.economy_tab {
+    font-size: 12px;
+    line-height: 16px;
+    color: #787878;
+    float: right;
+    display: inline-block; 
+    padding-right: 18px;
+    padding-bottom: 5px;
+}
+
+.primary-light-blue-btn{
+    margin-right: 0px !important;
+    background-color: #0071BC !important;
+}
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    .tab-set .nav-tabs > li a {
+        font-size: 12px !important;
+    }
+    .accordion-group-btn {
+        text-align: right;
+    }
+    .economy_tab {
+        padding-right: 0px !important;
+    }
+    .full-row-dark-blue-components {
+        margin-right: -15px !important;
+    }
+    .overflow-x{
+        overflow-x: auto !important;
+    }
+}
+
+.overflow-x{
+    overflow-x: unset !important;
+}
+
+.ngx-pagination {
+    margin-left: 0;
+    margin-bottom: 1rem; }
+    .ngx-pagination::before, .ngx-pagination::after {
+      content: ' ';
+      display: table; }
+    .ngx-pagination::after {
+      clear: both; }
+    .ngx-pagination li {
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      margin-right: 0.0625rem;
+      border-radius: 0; }
+    .ngx-pagination li {
+      display: inline-block; }
+    .ngx-pagination a,
+    .ngx-pagination button {
+      color: #0a0a0a; 
+      display: block;
+      padding: 0.1875rem 0.625rem;
+      border-radius: 0; }
+      .ngx-pagination a:hover,
+      .ngx-pagination button:hover {
+        /* background: #0071BC!important; */
+     }
+    .ngx-pagination .current {
+      padding: 0.1875rem 0.625rem;
+      background: #ffffff !important;
+      color: #0a0a0a !important;
+      font-weight: bold !important;
+    text-decoration: none;
+    font-size: 13px !important;
+    line-height: 17px !important;
+      cursor: default; }
+    .ngx-pagination .disabled {
+      padding: 0.1875rem 0.625rem;
+      color: #777 !important;
+      cursor: default; } 
+      .ngx-pagination .disabled:hover {
+        background: transparent; }
+    .ngx-pagination a, .ngx-pagination button {
+      cursor: pointer; }
+  
+  .ngx-pagination .pagination-previous a::before,
+  .ngx-pagination .pagination-previous.disabled::before { 
+    content: '‹‹  ‹'!important;
+    font-size: 17px !important;
+    font-weight: bold !important;
+    display: inline-block;
+    margin-right: 0.5rem; }
+  
+  .ngx-pagination .pagination-next a::after,
+  .ngx-pagination .pagination-next.disabled::after {
+    content: '››  ›'!important;
+    font-weight: bold !important;
+    font-size: 17px !important;
+    display: inline-block;
+    margin-left: 0.5rem; }
+  
+  .ngx-pagination .show-for-sr {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0); }
+  .ngx-pagination .small-screen {
+    display: none; }
+  @media screen and (max-width: 601px) {
+    .ngx-pagination.responsive .small-screen {
+      display: inline-block; } 
+    .ngx-pagination.responsive li:not(.small-screen):not(.pagination-previous):not(.pagination-next) {
+      display: none; }
+  }
+.border{
+    border: 1px solid #ddd;
+    margin-left: 10px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}

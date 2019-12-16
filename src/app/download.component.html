@@ -1,0 +1,115 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div *ngIf="!(allDownloads?.length > 0)">
+            <p>No Records</p>
+        </div>
+        <div *ngIf="(allDownloads?.length > 0)">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+                    <!-- [ngClass]="view === 'chart' ? '_loop_btn_secondary' : 'primary-light-blue-btn'"              -->
+                <div class="button-group economy_tab">
+                    <a (click)="tablehide('table',$event);" class="toggle-btn _loop_btn_secondary primary-light-blue-btn" >Table</a>
+                    <span> OR </span>
+                    <a (click)="tablehide('chart',$event);" class="toggle-btn _loop_btn_secondary" >Chart</a>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="divtables">
+                <div class="table-heading" >                    
+                    <p class="blurb-text" *ngIf="(allDownloads?.length > 20)">
+                        {{noticesShowingDetails}} 
+                        <span class="ng-tns-c0-0">
+                        <a class="active" (click)="totalCount(20,$event);">20 </a>|
+                        </span>
+                        <span class="ng-tns-c0-0">
+                        <a class=""  (click)="totalCount(50,$event);">50 </a>|
+                        </span>
+                        <span class="ng-tns-c0-0">
+                        <a  class="" (click)="totalCount(100,$event);">100</a>
+                        </span>
+                    </p>
+                    <div class="accordion-group-btn">
+                        <span class="blurb-text">{{downloadLabel}}: </span> 
+                        <a (click)="downloadExcel()" class="accordion-download" data-type="excel" title="Download excel"><span><i class="fa fa-file-excel-o" aria-hidden="true"></i></span></a>                        
+                    </div>                   
+                </div>
+                <div class="c14v1-body c14v1-body-text project-opt-table table-responsive overflow-x">
+                    <!-- <div class="paragraph table-sort sorter"> -->
+                       
+                        <table *ngIf="index == '1'"  class="project-operation-tab-table project-opt-table">
+                            <thead>
+                                <tr>
+                                <th (click)="onSort();" *ngFor="let tableHeaderValue of tableHeaders;  let i = index">
+                                {{tableHeaderValue}}
+                                </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let noticesObject of allDownloads | orderBy:'noticesObject.Country' :reverse | paginate: { itemsPerPage: count, currentPage: p,totalItems: total};">
+                                <td [attr.data-th]="tableHeaders[0]+':'" >{{noticesObject.Country}}</td>
+                                <td [attr.data-th]="tableHeaders[1]+':'" >{{noticesObject.Region}}</td>
+                                <td [attr.data-th]="tableHeaders[2]+':'">{{noticesObject.NonBankAccess}}</td>
+                                <td [attr.data-th]="tableHeaders[3]+':'">{{noticesObject.Percent}}</td>
+                            </tbody>
+                        </table>
+                        <table *ngIf="index == '2'"  class="project-operation-tab-table project-opt-table">
+                            <thead>
+                                <tr>
+                                <th (click)="onSort();" *ngFor="let tableHeaderValue of tableHeaders;  let i = index">
+                                {{tableHeaderValue}}
+                                </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let noticesObject of allDownloads | orderBy:'noticesObject.FieldOffice' :reverse | paginate: { itemsPerPage: count, currentPage: p,totalItems: total};">
+                                <td [attr.data-th]="tableHeaders[0]+':'" >{{noticesObject.FieldOffice}}</td>
+                                <td [attr.data-th]="tableHeaders[1]+':'">{{noticesObject.BankAccess}}</td>
+                                <td [attr.data-th]="tableHeaders[2]+':'">{{noticesObject.Percent}}</td>
+                            </tbody>
+                        </table>
+                        <div class="row" *ngIf="index == '3'">
+                            <div class="drop-right text-right blurb-text" >
+                                <span class="ng-tns-c0-0">Filter By Year : </span> 
+                                <select class="ng-tns-c0-0"  (change)="onChangeYearLevel($event.target.value)">
+                                <option [value]="0">All</option>
+                                <option *ngFor="let noticesObject of dropdownArray" [value]="noticesObject">{{noticesObject}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <table *ngIf="index == '3'"  class="project-operation-tab-table project-opt-table">
+                            <thead>
+                                <tr>
+                                <th (click)="onSort();" *ngFor="let tableHeaderValue of tableHeaders;  let i = index">
+                                {{tableHeaderValue}}
+                                </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let noticesObject of allDownloads | orderBy:'noticesObject.YYYY' :reverse | paginate: { itemsPerPage: count, currentPage: p,totalItems: total};">
+                                <td [attr.data-th]="tableHeaders[0]+':'" >{{noticesObject.YYYY}}</td>
+                                <td [attr.data-th]="tableHeaders[1]+':'" >{{noticesObject.MON}}</td>
+                                <td [attr.data-th]="tableHeaders[2]+':'">{{noticesObject.ACCESS_COUNT}}</td>
+                                <td [attr.data-th]="tableHeaders[3]+':'">{{noticesObject.PER}}</td>
+                            </tbody>
+                        </table>
+                        <div class="col-xs-8 col-md-8 pagination " *ngIf="(allDownloads?.length > 20)">
+                            <pagination-controls previousLabel=""
+                                nextLabel="" (pageChange)="p = $event;pageChange($event)"  responsive="true"></pagination-controls>
+                        <!-- </div> -->
+                    </div>
+                </div>
+            </div>            
+        </div>
+       
+    </div>   
+
+</div>
+
+<div id="divcharts">
+
+    <div class="row border">
+        <div id="totalDownloadsChart{{index}}"></div>
+    </div>
+    <!-- <div class="border"></div> -->
+    <div class="row border">
+        <div id="percentageDownloadsChart{{index}}"></div>
+    </div>        
+</div>

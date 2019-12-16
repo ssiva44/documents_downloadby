@@ -1,0 +1,68 @@
+
+
+<div class="row full-row-dark-blue-components" style="padding: 64px 0px 32px 0px">
+<div  class="container">
+ 
+     <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h1>{{title}}</h1>
+            <div class="ajax-div" *ngIf="loading">		
+              <img src="{{imagePath}}" class="ajax-loader" alt="Loading" />
+            </div>
+        </div>
+     </div>
+  </div>
+</div>
+<br>
+<div class="row full-row-white-components" style="padding: 32px 0px 32px 0px">
+<div  class="container">
+  
+    <div class="row">  
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="c14v1-body c14v1-body-text flipboard-keep" [innerHTML]="disclaimerText"></div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <section class="tab-set">
+            <ul class="nav nav-tabs">
+                <li>
+                  <a class="menu-active btn" (click)="tab(1,$event);">
+                  {{countryLabel}}
+                  </a>
+                </li>
+                <li>
+                  <a class="btn" (click)="tab(2,$event);">
+                  {{headQuarterLabel}}
+                  </a>
+                </li>
+                <li>
+                  <a class="btn"  (click)="tab(3,$event);">
+                  {{monthOrYearLabel}}
+                  </a>
+                </li>
+            </ul>
+          </section> 
+        </div>
+        
+  
+  
+      
+
+      <div id="divCountry" >
+       
+          <download *ngIf="index == '1'" [locale]="locale" [index]="index" [documetId]="documetId" [api]="countryApi" (updateValues)="updateValues($event)"></download>
+      </div>
+      <div id="divhead">
+         
+          <download *ngIf="index == '2'" [locale]="locale" [index]="index" [documetId]="documetId" [api]="headQuarterApi" (updateValues)="updateValues($event)"></download>
+        </div>
+        <div id="divMonth">
+         
+            <download *ngIf="index == '3'" [locale]="locale" [index]="index" [documetId]="documetId" [api]="monthYearApi" (updateValues)="updateValues($event)"></download>
+      </div>
+     
+     
+     
+
+    </div>
+  </div>
+</div>

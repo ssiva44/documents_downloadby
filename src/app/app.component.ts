@@ -27,14 +27,18 @@ export class AppComponent implements  OnInit {
   urlSplit: any[] = [];
   queryParams: any[] = [];  
   disclaimerText: string = "";  
+  downloadApi: string;
+  totalDownloads: string;
 
   constructor(private element: ElementRef, private dataService: DataService) {
     this.loading = true;
+   // this.index = "1";
     this.imagePath = this.element.nativeElement.getAttribute('imagePath'); 
     this.locale = this.element.nativeElement.getAttribute('locale');
     this.countryApi = this.element.nativeElement.getAttribute('country-api');    
     this.headQuarterApi = this.element.nativeElement.getAttribute('head-quarter-api');    
     this.monthYearApi = this.element.nativeElement.getAttribute('month-year-api');       
+    this.downloadApi = this.element.nativeElement.getAttribute('totaldown-api'); 
 
     this.i18n = I18nService.ALL_LOCALES[this.locale];    
     this.countryLabel = this.i18n.country;
@@ -55,6 +59,14 @@ export class AppComponent implements  OnInit {
     if(this.urlSplit.length>1){
       this.queryParams = this.urlSplit[1].split('&');
       this.documetId=this.queryParams[0].split('docid=')[1];
+      this.downloadApi += "?GuId=" + this.documetId+"&DocFormat=renderedpdf&index";
+ 
+      this.dataService.getResponse(this.downloadApi).subscribe((response)=> { 
+          if(response.downloadCount != undefined)
+          {
+             this.totalDownloads = response.downloadCount;
+          }
+       });
       if(this.queryParams[1]!=null){
         this.downloadBy = this.queryParams[1].split('type=')[1];
       }

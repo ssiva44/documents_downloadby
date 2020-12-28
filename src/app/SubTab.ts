@@ -1,16 +1,16 @@
-import { Component, Input } from "@angular/core";
+// import { Component, Input } from "@angular/core";
 
-@Component({
-  selector: 'tab',
-  template: `
-    <ng-content *ngIf="active"></ng-content>
-  `
-})
-export class Tab {
+// @Component({
+//   selector: 'tab',
+//   template: `
+//     <ng-content *ngIf="active"></ng-content>
+//   `
+// })
+// export class Tab {
 
-  @Input() title = '';
-  @Input() active = true;
-  @Input() disabled = false;
-  @Input() index = "";
+//   @Input() title = '';
+//   @Input() active = true;
+//   @Input() disabled = false;
+//   @Input() index = "";
 
-}
+// }

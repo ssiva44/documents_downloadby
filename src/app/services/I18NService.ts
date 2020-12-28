@@ -3,7 +3,7 @@ export class I18nService {
         en : {
            country: "Country/Region",
            headQuarter: "HQ/Country Office",
-           monthOryear: "Month/Year",
+           monthOryear: "Month/Year", 
            disclaimerText: "<p>*The text version is uncorrected OCR text and is included solely to benefit users with slow connectivity.</p><p>**Download statistics measured since January 1st, 2014</p>"
         },
         es : {               

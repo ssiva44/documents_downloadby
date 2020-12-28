@@ -5,18 +5,14 @@ import { HttpModule } from '@angular/http';
 
 import { NgModule } from '@angular/core';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { Tab } from './SubTab';
-import { Tabset } from './SubTabSet';
 import { AppComponent } from './app.component';
 import { DownloadComponent } from './download.component';
 import { OrderModule } from 'ngx-order-pipe';
-import {TabsModule} from 'ngx-tabset';
+// import {TabsModule} from 'ngx-tabset';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    Tab,
-    Tabset,
+    AppComponent,    
     DownloadComponent
   ],
   imports: [
@@ -25,8 +21,8 @@ import {TabsModule} from 'ngx-tabset';
     FormsModule,
     HttpModule,
     NgxPaginationModule,
-    OrderModule  ,
-    TabsModule.forRoot()
+    OrderModule  
+  //  TabsModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

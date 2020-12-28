@@ -17,6 +17,7 @@ export class DownloadComponent implements  OnInit {
     @Input() api: string;	       
     @Output() updateValues = new EventEmitter<any>();	
     @Output() sortOut = new EventEmitter();
+    @Input() downloadApi: string;	
 
     allDownloads: any[] = [];
     fulldatas: any[] = [];
@@ -60,20 +61,23 @@ export class DownloadComponent implements  OnInit {
     tableHeaders: any[];
     dropdownArray:any[];
     view: string = "table";
+    totalDownloads: string;
+    buttonText:string = "Chart";
 
     constructor(private dataService: DataService) {   }
 
     ngOnChanges() {    
         this.api += "?&SortBy=&Guid=" + this.documetId;
         if (this.index == "3") {
-            this.api += "&Year=";
+            this.api += "&Year=ALL";
         }
         this.updateValues.emit({ loading: true, title: ""});
+       
         this.dataService.getResponse(this.api).subscribe((response)=> {             
             let root = response.Root;
             let title = root.title;
             let totalDownloads = root.TOTAL_DOWNLOADS;            
-
+            this.updateValues.emit({ loading: false, title: ""});
             if (this.index == "3") {                       
                 if (root.hasOwnProperty("YEARLIST")) {   
                     let year = root.YEARLIST.YEAR;
@@ -92,15 +96,25 @@ export class DownloadComponent implements  OnInit {
                         if (root.hasOwnProperty("YYYY-" + element["YYYY"])) {
                             let month_year = root["YYYY-" + element["YYYY"]].Month_year;
                             
+                            if(month_year.length >= 1)
+                            {
                             for (let j = 0; j < month_year.length; j++) {
                                 this.allDownloads.push(month_year[j]);
                             }
+                             }
+                           else
+                            this.allDownloads.push(month_year);
+                        
                         }
                     }
                 }                                                   
             } else {
+				 if(root.DocumentAccessCount.length >= 1)
                 this.allDownloads = root.DocumentAccessCount;
+				else
+				 this.allDownloads.push(root.DocumentAccessCount);
             }
+			
              
             this.fulldatas = this.allDownloads;
             let labels = [], totalDownloadValues = [], percentageDownloadValues = [];
@@ -108,6 +122,7 @@ export class DownloadComponent implements  OnInit {
             if(this.totalItems<=20){
                 this.pageCount = this.totalItems;
             }
+			
             for (let i = 0; this.allDownloads.length > i; i++) {
                 let document = this.allDownloads[i];
              
@@ -161,37 +176,37 @@ export class DownloadComponent implements  OnInit {
         this.rightArrow = this.locale == 'ar' ? 'fa fa-angle-left' : 'fa fa-angle-right';
 		this.noticesTableHeadersGroup = { 
 			'en' : 'Country/Area%%Region%%Total Downloads%%% Downloads',
-			// 'es' : 'Descripción%%País%%Nombre del Proyecto%%Tipo de anuncio%%Idioma%%Fecha de publicación',
-			// 'fr' : 'Description%%Pays%%Intitulé du Projet%%Type d’avis%%Langue%%Date de publication',
-			// 'ar' : 'الوصف%%البلد%%اسم المشروع%%نوع الإخطار%%اللغة%%تاريخ النشر',
-			// 'zh' : '说明%% 国家%%项目名称%%通知类型%%语种%%发布日期',
-			// 'ru' : 'Описание%%Страна%%Название Проекта%%Тип уведомления%%Язык%%Дата опубликования',
-			// 'pt' : 'Descrição%%País%%Título do projeto%%Tipo de notificação%%Idioma%%Data de publicação',
+			'es' : 'Country/Area%%Region%%Total Downloads%%% Downloads',
+			'fr' : 'Country/Area%%Region%%Total Downloads%%% Downloads',
+			'ar' : 'Country/Area%%Region%%Total Downloads%%% Downloads',
+			'zh' : 'Country/Area%%Region%%Total Downloads%%% Downloads',
+			'ru' : 'Country/Area%%Region%%Total Downloads%%% Downloads',
+			'pt' : 'Country/Area%%Region%%Total Downloads%%% Downloads',
 		}
 		this.contractsTableHeadersGroup = {
 			'en' : 'HQ/Country Office%%Total Downloads%%% Downloads',
-			// 'es' : 'Descripción%%País%%Nombre del Proyecto%%Método de adquisiciones%%Fecha de firma%%Monto (US$)',
-			// 'fr' : 'Description%%Pays%%Intitulé du Projet%%Mode de passation%%Date de signature%%Montant (en dollars)',
-			// 'ar' : 'الوصف%%البلد%%اسم المشروع%%أسلوب المشتريات%%تاريخ التوقيع%%(المبلغ (بالدولار',
-			// 'zh' : '说明%% 国家%%项目名称%%采购方法%%签署日期%%金额（美元）',
-			// 'ru' : 'Описание%%Страна%%Название Проекта%%Метод закупок%%Дата подписания%%Сумма (ДОЛЛ. США)',
-			// 'pt' : 'Descrição%%País%%Título do projeto%%Método de Aquisição%%Data de assinatura%%label.amountusdlow',
+			'es' : 'HQ/Country Office%%Total Downloads%%% Downloads',
+			'fr' : 'HQ/Country Office%%Total Downloads%%% Downloads',
+			'ar' : 'HQ/Country Office%%Total Downloads%%% Downloads',
+			'zh' : 'HQ/Country Office%%Total Downloads%%% Downloads',
+			'ru' : 'HQ/Country Office%%Total Downloads%%% Downloads',
+			'pt' : 'HQ/Country Office%%Total Downloads%%% Downloads',
 
 		}
 		this.planTableHeadersGroup = {
 			'en' : 'Year%%Month%%Total Downloads%%% Downloads',
-			// 'es' : 'Título del documento%%Fecha%%Informe No.%%Nombre del Proyecto%%No. de identificación del proyecto',
-			// 'fr' : 'Titre du document%%Date%%No de rapport%%Intitulé du Projet%%Numéro du Projet',
-			// 'ar' : 'نوع الوثيقة%%التاريخ%%تقرير رق��%%اسم المشروع%%معرّف المشروع',
-			// 'zh' : '文件标题%%日期%%报告编号%%项目名称%%项目编号',
-			// 'ru' : 'Название Документа%%Дата%%Доклад №%%Название Проекта%%Идентификационный номер проекта',
-			// 'pt' : 'Título do documento%%Data%%Relatório Nº%%Título do projeto%%Identidade do Projeto',
+			'es' : 'Year%%Month%%Total Downloads%%% Downloads',
+			'fr' : 'Year%%Month%%Total Downloads%%% Downloads',
+			'ar' : 'Year%%Month%%Total Downloads%%% Downloads',
+			'zh' : 'Year%%Month%%Total Downloads%%% Downloads',
+			'ru' : 'Year%%Month%%Total Downloads%%% Downloads',
+			'pt' : 'Year%%Month%%Total Downloads%%% Downloads',
 		}
 
 		this.noticesTableHeadersProperties = [ 'Country', 'Region', 'NonBankAccess', 'Percent']
 		this.contractsTableHeadersProperties = [ 'contr_desc_exact', 'countryshortname', 'project_name', 'procu_meth_text', 'contr_sgn_date', 'total_contr_amnt' ]
 		this.plansTableHeadersProperties = [ '', 'docdt', 'repnb', 'projn', 'projectid' ]
-		
+		 
 		this.loadMoreLabelGroup = {
 			'en' : 'LOAD MORE',
 			'es' : 'LOAD MORE',
@@ -239,8 +254,7 @@ export class DownloadComponent implements  OnInit {
 
     public totalDownloadOptions: any = {
         chart: {
-            type: 'bar',  
-            shadow: false          
+            type: 'bar',            
            // width: 1200
         },
         title: {
@@ -308,8 +322,7 @@ export class DownloadComponent implements  OnInit {
       
     public percentageDownloadOptions: any = {
         chart: {
-            type: 'column',  
-           // shadow: false          
+            type: 'column',            
            // width: 1200
         },
         title: {
@@ -317,7 +330,7 @@ export class DownloadComponent implements  OnInit {
         },
         xAxis: {
             categories: [],
-           // crosshair: true    
+            // crosshair: true    
         },   
         yAxis: {
             title: {
@@ -338,10 +351,6 @@ export class DownloadComponent implements  OnInit {
             enabled: false,
             minSize:50,
   maxSize: 70,
-  style: {
-    textOutline: false ,
-    textShadow: false,
-     }
         },
         series: [{
             name: '',
@@ -356,11 +365,7 @@ export class DownloadComponent implements  OnInit {
                     legend: {
                         align: 'center',
                         verticalAlign: 'bottom',
-                        layout: 'horizontal',
-                        style: {
-                            textOutline: false ,
-                            textShadow: false,
-                             }
+                        layout: 'horizontal'
                     },
                     yAxis: {
                         labels: {
@@ -527,15 +532,17 @@ export class DownloadComponent implements  OnInit {
       }
 
       tablehide(txt,event){
-        //   console.log(txt)
-        //this.view = txt;
+        
+        
         $(".button-group a").removeClass('primary-light-blue-btn');
         event.target.classList.add('primary-light-blue-btn');
-        if(txt=="table"){
+        if(txt=="Table"){
+            this.buttonText = "Chart";
            $("#divtables").show();
            $("#divcharts").hide();
         }
-        else if(txt=="chart"){
+        else if(txt=="Chart"){
+            this.buttonText = "Table";
            $("#divcharts").show();
            $("#divtables").hide();
         }      
